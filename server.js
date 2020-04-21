@@ -7,13 +7,12 @@ const express = require("express");
 const app = express();
 
 const bodyParser = require("body-parser");
+const low = require("lowdb");
+const FileSync = require("lowdb/adapters/FileSync");
+const adapter = new FileSync("db.json");
+const db = low(adapter);
 
-var todos = [
-  { name: "Đi chợ" },
-  { name: "Nấu ăn" },
-  { name: "Giặt đồ" },
-  { name: "Học code" }
-];
+db.defaults({ todos: [] }).write();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
