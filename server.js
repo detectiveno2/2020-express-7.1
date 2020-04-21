@@ -34,6 +34,7 @@ app.get('/todos/search', (req, res) => {
   })
   res.render('todos/index', {
     todos: matchedTodos,
+    queryInput: q
   })
 })
 
