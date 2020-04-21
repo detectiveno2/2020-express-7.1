@@ -11,6 +11,7 @@ const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync("db.json");
 const db = low(adapter);
+const shortid = require('shortid');
 
 db.defaults({ todos: [] }).write();
 
@@ -45,10 +46,15 @@ app.get("/todos/search", (req, res) => {
 });
 
 app.post("/todos/create", (req, res) => {
+  req.body.id = shortid.generate();
   let newTodo = req.body;
   db.get('todos').push(newTodo).write();
   res.redirect("back");
 });
+
+app.delete('/todos/:id/delete', (req, res) => {
+  db.get('todos').remove({id: })
+})
 
 // listen for requests :)
 app.listen(process.env.PORT, () => {
