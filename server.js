@@ -27,13 +27,13 @@ app.get("/", (req, res) => {
 
 app.get("/todos", (req, res) => {
   res.render("todos/index", {
-    todos: todos
+    todos: db.get('todos').value(),
   });
 });
 
 app.get("/todos/search", (req, res) => {
   let q = req.query.q;
-  let matchedTodos = todos.filter(todo => {
+  let matchedTodos = db.get('todos').filter(todo => {
     return todo.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
   });
   res.render("/todos/index", {
@@ -43,8 +43,8 @@ app.get("/todos/search", (req, res) => {
 });
 
 app.post("/todos/create", (req, res) => {
-  let newTodo = req.body;
-  todos.push(newTodo);
+  var newTodo = req.body;
+  db.get('todos').push(newTodo).write();
   res.redirect("back");
 });
 
