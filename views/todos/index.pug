@@ -1,7 +1,12 @@
 h1 Todos
+h3 Search:
 form(action='/todos/search', method='get')
   input(type='text', name='q', value=queryInput)
   button Search
+h3 Create:
+form(action='/todos/create', method='post')
+  input(type='text', name='name')
+  button Create
 ul
   each todo in todos
     li= todo.name
