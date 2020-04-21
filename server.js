@@ -45,7 +45,7 @@ app.get("/todos/search", (req, res) => {
 });
 
 app.post("/todos/create", (req, res) => {
-  var newTodo = req.body;
+  let newTodo = req.body;
   db.get('todos').push(newTodo).write();
   res.redirect("back");
 });
