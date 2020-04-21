@@ -38,7 +38,7 @@ app.get("/todos/search", (req, res) => {
   let matchedTodos = todos.filter(todo => {
     return todo.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
   });
-  res.render("/todos/index", {
+  res.render("todos/index", {
     todos: matchedTodos,
     queryInput: q
   });
