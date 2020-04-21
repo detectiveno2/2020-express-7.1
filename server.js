@@ -6,6 +6,13 @@
 const express = require('express');
 const app = express();
 
+var todos = [
+      {id: 1, name: 'Đi chợ'},
+      {id: 2, name: 'Nấu ăn'},
+      {id: 3, name: 'Giặt đồ'},
+      {id: 4, name: 'Học code'},
+];
+
 app.set('view engine', 'pug');
 app.set('views', './views');
 
@@ -16,12 +23,17 @@ app.get('/', (req, res) => {
 
 app.get('/todos', (req, res) => {
   res.render('todos/index', {
-    todos: [
-      {id: 1, name: 'Đi chợ'},
-      {id: 2, name: 'Nấu ăn'},
-      {id: 3, name: 'Giặt đồ'},
-      {id: 4, name: 'Học code'},
-    ],
+    todos: todos,
+  })
+})
+
+app.get('/todos/search', (req, res) => {
+  let q = req.query.q;
+  let matchedTodos = todos.filter(todo => {
+    return todo.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+  })
+  res.render('todos/index', {
+    todos: matchedTodos,
   })
 })
 
